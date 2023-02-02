@@ -10,6 +10,7 @@ class MainTabBar extends StatelessWidget {
     return TabBar(
       controller: tabController,
       labelColor: Colors.black,
+      indicatorColor: Colors.lightGreen,
       tabs: [
         Container(
           height: 56,
