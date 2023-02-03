@@ -1,8 +1,19 @@
+import 'package:exchange_app/provider/exchange_provider.dart';
+import 'package:exchange_app/repository/exchange_repository.dart';
 import 'package:exchange_app/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  final repository = ExchangeRepository();
+  final provider = ExchangeProvider(repository: repository);
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => provider,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );

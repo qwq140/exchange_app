@@ -1,16 +1,21 @@
+import 'package:exchange_app/provider/exchange_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExchangeRateTabView extends StatelessWidget {
   const ExchangeRateTabView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final list = context.watch<ExchangeProvider>().state.exchangeList;
+
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       children: [
         const SizedBox(height: 12),
         ...List.generate(
-          13,
+          list.length,
               (index) => Container(
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -28,8 +33,8 @@ class ExchangeRateTabView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('미국 달러'),
-                Text('1,231.60'),
+                Text(list[index].curName),
+                Text(list[index].amount),
               ],
             ),
           ),
