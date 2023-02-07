@@ -1,4 +1,6 @@
+import 'package:exchange_app/provider/calculate_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CalculateTabView extends StatelessWidget {
   const CalculateTabView({Key? key}) : super(key: key);
@@ -21,14 +23,24 @@ class CalculateTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(24),
-          child: _CurrencyRow(onTap: (){}, unit: 'USD', money: '1,111'),
+        Builder(
+          builder: (context) {
+            final state = context.watch<CalculateProvider>().state;
+            return Padding(
+              padding: const EdgeInsets.all(24),
+              child: _CurrencyRow(onTap: (){}, unit: state.selectExchange.unit, money: state.after,),
+            );
+          }
         ),
         const Icon(Icons.arrow_downward, size: 40),
-        const Padding(
-          padding: EdgeInsets.all(24),
-          child: _CurrencyRow(unit: 'KRW', money: '1,111',),
+        Builder(
+          builder: (context) {
+            final state = context.watch<CalculateProvider>().state;
+            return Padding(
+              padding: EdgeInsets.all(24),
+              child: _CurrencyRow(unit: 'KRW', money: state.after,),
+            );
+          }
         ),
         const Spacer(),
         Container(
@@ -82,6 +94,8 @@ class _CurrencyRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CalculateProvider>().state;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

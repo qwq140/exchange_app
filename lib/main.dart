@@ -1,3 +1,4 @@
+import 'package:exchange_app/provider/calculate_provider.dart';
 import 'package:exchange_app/provider/exchange_provider.dart';
 import 'package:exchange_app/repository/exchange_repository.dart';
 import 'package:exchange_app/screen/home_screen.dart';
@@ -9,8 +10,20 @@ void main() {
   final provider = ExchangeProvider(repository: repository);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => provider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ExchangeProvider>(
+          create: (_) => ExchangeProvider(
+            repository: ExchangeRepository(),
+          ),
+        ),
+        ChangeNotifierProxyProvider<ExchangeProvider, CalculateProvider>(
+          create: (context) => CalculateProvider(
+            exchangeList: context.read<ExchangeProvider>().state.exchangeList,
+          ),
+          update: (context, value, previous) => previous!..update(value),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
