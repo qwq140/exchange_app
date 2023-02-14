@@ -19,7 +19,6 @@ mixin _$ExchangeState {
   List<ExchangeListModel> get exchangeList =>
       throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
-  ExchangeListModel get selectExchange => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExchangeStateCopyWith<ExchangeState> get copyWith =>
@@ -32,12 +31,7 @@ abstract class $ExchangeStateCopyWith<$Res> {
           ExchangeState value, $Res Function(ExchangeState) then) =
       _$ExchangeStateCopyWithImpl<$Res, ExchangeState>;
   @useResult
-  $Res call(
-      {List<ExchangeListModel> exchangeList,
-      String date,
-      ExchangeListModel selectExchange});
-
-  $ExchangeListModelCopyWith<$Res> get selectExchange;
+  $Res call({List<ExchangeListModel> exchangeList, String date});
 }
 
 /// @nodoc
@@ -55,7 +49,6 @@ class _$ExchangeStateCopyWithImpl<$Res, $Val extends ExchangeState>
   $Res call({
     Object? exchangeList = null,
     Object? date = null,
-    Object? selectExchange = null,
   }) {
     return _then(_value.copyWith(
       exchangeList: null == exchangeList
@@ -66,19 +59,7 @@ class _$ExchangeStateCopyWithImpl<$Res, $Val extends ExchangeState>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
-      selectExchange: null == selectExchange
-          ? _value.selectExchange
-          : selectExchange // ignore: cast_nullable_to_non_nullable
-              as ExchangeListModel,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ExchangeListModelCopyWith<$Res> get selectExchange {
-    return $ExchangeListModelCopyWith<$Res>(_value.selectExchange, (value) {
-      return _then(_value.copyWith(selectExchange: value) as $Val);
-    });
   }
 }
 
@@ -90,13 +71,7 @@ abstract class _$$_ExchangeStateCopyWith<$Res>
       __$$_ExchangeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<ExchangeListModel> exchangeList,
-      String date,
-      ExchangeListModel selectExchange});
-
-  @override
-  $ExchangeListModelCopyWith<$Res> get selectExchange;
+  $Res call({List<ExchangeListModel> exchangeList, String date});
 }
 
 /// @nodoc
@@ -112,7 +87,6 @@ class __$$_ExchangeStateCopyWithImpl<$Res>
   $Res call({
     Object? exchangeList = null,
     Object? date = null,
-    Object? selectExchange = null,
   }) {
     return _then(_$_ExchangeState(
       exchangeList: null == exchangeList
@@ -123,10 +97,6 @@ class __$$_ExchangeStateCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
-      selectExchange: null == selectExchange
-          ? _value.selectExchange
-          : selectExchange // ignore: cast_nullable_to_non_nullable
-              as ExchangeListModel,
     ));
   }
 }
@@ -135,9 +105,7 @@ class __$$_ExchangeStateCopyWithImpl<$Res>
 
 class _$_ExchangeState implements _ExchangeState {
   _$_ExchangeState(
-      {required final List<ExchangeListModel> exchangeList,
-      required this.date,
-      required this.selectExchange})
+      {required final List<ExchangeListModel> exchangeList, required this.date})
       : _exchangeList = exchangeList;
 
   final List<ExchangeListModel> _exchangeList;
@@ -150,12 +118,10 @@ class _$_ExchangeState implements _ExchangeState {
 
   @override
   final String date;
-  @override
-  final ExchangeListModel selectExchange;
 
   @override
   String toString() {
-    return 'ExchangeState(exchangeList: $exchangeList, date: $date, selectExchange: $selectExchange)';
+    return 'ExchangeState(exchangeList: $exchangeList, date: $date)';
   }
 
   @override
@@ -165,14 +131,12 @@ class _$_ExchangeState implements _ExchangeState {
             other is _$_ExchangeState &&
             const DeepCollectionEquality()
                 .equals(other._exchangeList, _exchangeList) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.selectExchange, selectExchange) ||
-                other.selectExchange == selectExchange));
+            (identical(other.date, date) || other.date == date));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_exchangeList), date, selectExchange);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_exchangeList), date);
 
   @JsonKey(ignore: true)
   @override
@@ -184,15 +148,12 @@ class _$_ExchangeState implements _ExchangeState {
 abstract class _ExchangeState implements ExchangeState {
   factory _ExchangeState(
       {required final List<ExchangeListModel> exchangeList,
-      required final String date,
-      required final ExchangeListModel selectExchange}) = _$_ExchangeState;
+      required final String date}) = _$_ExchangeState;
 
   @override
   List<ExchangeListModel> get exchangeList;
   @override
   String get date;
-  @override
-  ExchangeListModel get selectExchange;
   @override
   @JsonKey(ignore: true)
   _$$_ExchangeStateCopyWith<_$_ExchangeState> get copyWith =>

@@ -6,16 +6,23 @@ class CalculateTabView extends StatelessWidget {
   const CalculateTabView({Key? key}) : super(key: key);
 
   Widget calBtn(String value, {Icon? icon}) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          alignment: Alignment.center,
-          child: icon ??
-              Text(value, style: TextStyle(fontSize: 24, color: Colors.black)),
-        ),
-      ),
+    return Builder(
+      builder: (context) {
+        return Expanded(
+          child: GestureDetector(
+            onTap: () {
+              context.read<CalculateProvider>().insert(value);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              alignment: Alignment.center,
+              color: Colors.transparent,
+              child: icon ??
+                  Text(value, style: TextStyle(fontSize: 24, color: Colors.black)),
+            ),
+          ),
+        );
+      }
     );
   }
 
@@ -28,7 +35,7 @@ class CalculateTabView extends StatelessWidget {
             final state = context.watch<CalculateProvider>().state;
             return Padding(
               padding: const EdgeInsets.all(24),
-              child: _CurrencyRow(onTap: (){}, unit: state.selectExchange.unit, money: state.after,),
+              child: _CurrencyRow(onTap: (){}, unit: state.selectExchange.unit, money: state.before,),
             );
           }
         ),
@@ -74,7 +81,7 @@ class CalculateTabView extends StatelessWidget {
                 children: [
                   calBtn('.'),
                   calBtn('0'),
-                  calBtn('', icon: Icon(Icons.backspace)),
+                  calBtn('<-', icon: Icon(Icons.backspace)),
                 ],
               ),
             ],

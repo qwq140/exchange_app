@@ -9,7 +9,5 @@ class ExchangeState with _$ExchangeState {
   factory ExchangeState({
     required List<ExchangeListModel> exchangeList,
     required String date,
-    required ExchangeListModel selectExchange,
   }) = _ExchangeState;
-
 }

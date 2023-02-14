@@ -20,11 +20,30 @@ class CalculateProvider with ChangeNotifier {
   /// 자판 입력할 때
   void insert(String value){
 
+    String temp = _state.before;
+    if(value == '<-'){
+      if(temp.length == 1) {
+        temp = '0';
+      } else {
+        temp = temp.substring(0,_state.before.length-1);
+      }
+    } else if(value == "."){
+      if(!temp.contains('.')) temp = temp + value;
+    } else {
+      if(temp == '0') {
+        temp = value;
+      } else {
+        temp = temp + value;
+      }
+    }
+
+    _calculate(temp);
   }
 
-  void _calculate(double before){
-    double after = double.parse(_state.selectExchange.amount) * before;
-    _state = _state.copyWith(before: before.toString(), after: after.toString());
+  void _calculate(String before){
+    double beforeAmount = double.parse(before);
+    double afterAmount = double.parse(_state.selectExchange.amount) * beforeAmount;
+    _state = _state.copyWith(before: before, after: afterAmount == 0.0 ? '0': afterAmount.toString());
     notifyListeners();
   }
 }
