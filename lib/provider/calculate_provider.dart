@@ -8,13 +8,21 @@ class CalculateProvider with ChangeNotifier {
   CalculateState get state => _state;
 
   CalculateProvider({required List<ExchangeListModel> exchangeList}){
-    _state = CalculateState(selectExchange: exchangeList.first, exchangeList: exchangeList, after: '0', before: '0');
+    _state = CalculateState(selectExchange: exchangeList.first, exchangeList: exchangeList, after: '0', before: '0', rate: 1);
+    _rateCal();
   }
 
   /// 의존하는 값 변경시 호출
   void update(ExchangeProvider exchangeProvider){
     _state = _state.copyWith(exchangeList: exchangeProvider.state.exchangeList);
     notifyListeners();
+  }
+
+  void selectExchange(String value){
+    ExchangeListModel exchange = _state.exchangeList.firstWhere((e) => e.unit == value);
+    _state = _state.copyWith(selectExchange: exchange);
+    _rateCal();
+    _calculate(_state.before);
   }
 
   /// 자판 입력할 때
@@ -42,8 +50,14 @@ class CalculateProvider with ChangeNotifier {
 
   void _calculate(String before){
     double beforeAmount = double.parse(before);
-    double afterAmount = double.parse(_state.selectExchange.amount) * beforeAmount;
+    double afterAmount = double.parse(_state.selectExchange.amount.replaceAll(',', '')) * beforeAmount * _state.rate;
     _state = _state.copyWith(before: before, after: afterAmount == 0.0 ? '0': afterAmount.toString());
     notifyListeners();
+  }
+
+  void _rateCal(){
+    String name = _state.selectExchange.unit;
+    String substring =  name.substring(name.indexOf('(')+1, name.indexOf(')'));
+    _state = _state.copyWith(rate: 1 / (double.parse(substring)));
   }
 }

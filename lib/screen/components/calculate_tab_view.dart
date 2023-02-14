@@ -1,4 +1,5 @@
 import 'package:exchange_app/provider/calculate_provider.dart';
+import 'package:exchange_app/screen/components/custom_drop_down.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,54 +7,56 @@ class CalculateTabView extends StatelessWidget {
   const CalculateTabView({Key? key}) : super(key: key);
 
   Widget calBtn(String value, {Icon? icon}) {
-    return Builder(
-      builder: (context) {
-        return Expanded(
-          child: GestureDetector(
-            onTap: () {
-              context.read<CalculateProvider>().insert(value);
-            },
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              alignment: Alignment.center,
-              color: Colors.transparent,
-              child: icon ??
-                  Text(value, style: TextStyle(fontSize: 24, color: Colors.black)),
-            ),
+    return Builder(builder: (context) {
+      return Expanded(
+        child: GestureDetector(
+          onTap: () {
+            context.read<CalculateProvider>().insert(value);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            alignment: Alignment.center,
+            color: Colors.transparent,
+            child: icon ??
+                Text(value,
+                    style: TextStyle(fontSize: 24, color: Colors.black)),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Builder(
-          builder: (context) {
-            final state = context.watch<CalculateProvider>().state;
-            return Padding(
-              padding: const EdgeInsets.all(24),
-              child: _CurrencyRow(onTap: (){}, unit: state.selectExchange.unit, money: state.before,),
-            );
-          }
-        ),
+        Builder(builder: (context) {
+          final state = context.watch<CalculateProvider>().state;
+          return Padding(
+            padding: const EdgeInsets.all(24),
+            child: _CurrencyRow(
+              onTap: () {},
+              unit: state.selectExchange.unit,
+              money: state.before,
+              useDrop: true,
+            ),
+          );
+        }),
         const Icon(Icons.arrow_downward, size: 40),
-        Builder(
-          builder: (context) {
-            final state = context.watch<CalculateProvider>().state;
-            return Padding(
-              padding: EdgeInsets.all(24),
-              child: _CurrencyRow(unit: 'KRW', money: state.after,),
-            );
-          }
-        ),
+        Builder(builder: (context) {
+          final state = context.watch<CalculateProvider>().state;
+          return Padding(
+            padding: EdgeInsets.all(24),
+            child: _CurrencyRow(
+              unit: 'KRW',
+              money: state.after,
+            ),
+          );
+        }),
         const Spacer(),
         Container(
           decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.grey[300]!))
-          ),
+              border: Border(top: BorderSide(color: Colors.grey[300]!))),
           child: Column(
             children: [
               Row(
@@ -95,9 +98,16 @@ class CalculateTabView extends StatelessWidget {
 class _CurrencyRow extends StatelessWidget {
   final String unit;
   final String money;
+  final bool useDrop;
   final Function()? onTap;
 
-  const _CurrencyRow({Key? key, required this.unit, required this.money, this.onTap}) : super(key: key);
+  const _CurrencyRow(
+      {Key? key,
+      required this.unit,
+      required this.money,
+      this.onTap,
+      this.useDrop = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,20 +116,27 @@ class _CurrencyRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Text(
-            unit,
-            style: const TextStyle(fontSize: 24),
-          ),
-        ),
+        useDrop
+            ? Expanded(
+              child: CustomDropDown(
+                  items: state.exchangeList.map((e) => e.unit).toList(),
+                  hint: '',
+                  onChange: (value) {
+                    context.read<CalculateProvider>().selectExchange(value);
+                  },
+                  selectedItem: state.selectExchange.unit,
+                ),
+            )
+            : Text(
+                unit,
+                style: const TextStyle(fontSize: 24),
+              ),
         Container(
           width: MediaQuery.of(context).size.width * 0.5,
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.only(bottom: 6),
           decoration: const BoxDecoration(
-              border:
-              Border(bottom: BorderSide(color: Colors.lightGreen))),
+              border: Border(bottom: BorderSide(color: Colors.lightGreen))),
           child: Text(
             money,
             style: const TextStyle(fontSize: 20),

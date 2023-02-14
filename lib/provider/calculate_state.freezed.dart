@@ -19,6 +19,7 @@ mixin _$CalculateState {
   List<ExchangeListModel> get exchangeList =>
       throw _privateConstructorUsedError;
   ExchangeListModel get selectExchange => throw _privateConstructorUsedError;
+  double get rate => throw _privateConstructorUsedError;
   String get before => throw _privateConstructorUsedError;
   String get after => throw _privateConstructorUsedError;
 
@@ -36,6 +37,7 @@ abstract class $CalculateStateCopyWith<$Res> {
   $Res call(
       {List<ExchangeListModel> exchangeList,
       ExchangeListModel selectExchange,
+      double rate,
       String before,
       String after});
 
@@ -57,6 +59,7 @@ class _$CalculateStateCopyWithImpl<$Res, $Val extends CalculateState>
   $Res call({
     Object? exchangeList = null,
     Object? selectExchange = null,
+    Object? rate = null,
     Object? before = null,
     Object? after = null,
   }) {
@@ -69,6 +72,10 @@ class _$CalculateStateCopyWithImpl<$Res, $Val extends CalculateState>
           ? _value.selectExchange
           : selectExchange // ignore: cast_nullable_to_non_nullable
               as ExchangeListModel,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
       before: null == before
           ? _value.before
           : before // ignore: cast_nullable_to_non_nullable
@@ -100,6 +107,7 @@ abstract class _$$_CalculateStateCopyWith<$Res>
   $Res call(
       {List<ExchangeListModel> exchangeList,
       ExchangeListModel selectExchange,
+      double rate,
       String before,
       String after});
 
@@ -120,6 +128,7 @@ class __$$_CalculateStateCopyWithImpl<$Res>
   $Res call({
     Object? exchangeList = null,
     Object? selectExchange = null,
+    Object? rate = null,
     Object? before = null,
     Object? after = null,
   }) {
@@ -132,6 +141,10 @@ class __$$_CalculateStateCopyWithImpl<$Res>
           ? _value.selectExchange
           : selectExchange // ignore: cast_nullable_to_non_nullable
               as ExchangeListModel,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
       before: null == before
           ? _value.before
           : before // ignore: cast_nullable_to_non_nullable
@@ -150,6 +163,7 @@ class _$_CalculateState implements _CalculateState {
   _$_CalculateState(
       {required final List<ExchangeListModel> exchangeList,
       required this.selectExchange,
+      required this.rate,
       required this.before,
       required this.after})
       : _exchangeList = exchangeList;
@@ -165,13 +179,15 @@ class _$_CalculateState implements _CalculateState {
   @override
   final ExchangeListModel selectExchange;
   @override
+  final double rate;
+  @override
   final String before;
   @override
   final String after;
 
   @override
   String toString() {
-    return 'CalculateState(exchangeList: $exchangeList, selectExchange: $selectExchange, before: $before, after: $after)';
+    return 'CalculateState(exchangeList: $exchangeList, selectExchange: $selectExchange, rate: $rate, before: $before, after: $after)';
   }
 
   @override
@@ -183,6 +199,7 @@ class _$_CalculateState implements _CalculateState {
                 .equals(other._exchangeList, _exchangeList) &&
             (identical(other.selectExchange, selectExchange) ||
                 other.selectExchange == selectExchange) &&
+            (identical(other.rate, rate) || other.rate == rate) &&
             (identical(other.before, before) || other.before == before) &&
             (identical(other.after, after) || other.after == after));
   }
@@ -192,6 +209,7 @@ class _$_CalculateState implements _CalculateState {
       runtimeType,
       const DeepCollectionEquality().hash(_exchangeList),
       selectExchange,
+      rate,
       before,
       after);
 
@@ -206,6 +224,7 @@ abstract class _CalculateState implements CalculateState {
   factory _CalculateState(
       {required final List<ExchangeListModel> exchangeList,
       required final ExchangeListModel selectExchange,
+      required final double rate,
       required final String before,
       required final String after}) = _$_CalculateState;
 
@@ -213,6 +232,8 @@ abstract class _CalculateState implements CalculateState {
   List<ExchangeListModel> get exchangeList;
   @override
   ExchangeListModel get selectExchange;
+  @override
+  double get rate;
   @override
   String get before;
   @override

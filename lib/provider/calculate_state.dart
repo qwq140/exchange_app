@@ -9,6 +9,7 @@ class CalculateState with _$CalculateState {
   factory CalculateState({
     required List<ExchangeListModel> exchangeList,
     required ExchangeListModel selectExchange,
+    required double rate,
     required String before,
     required String after,
   }) = _CalculateState;
