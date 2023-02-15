@@ -1,4 +1,5 @@
 import 'package:exchange_app/provider/exchange_provider.dart';
+import 'package:exchange_app/provider/exchange_state.dart';
 import 'package:exchange_app/screen/components/main_tab_bar.dart';
 import 'package:exchange_app/screen/components/main_tab_view.dart';
 import 'package:exchange_app/utils/date_util.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('기준 : ${state.date}', style: const TextStyle(color: Colors.black),),
+        title: Text('기준 : ${state is ExchangeData ? state.date : ''}', style: const TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         elevation: 0,
       ),

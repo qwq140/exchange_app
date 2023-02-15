@@ -16,7 +16,7 @@ void main() {
         ),
         ChangeNotifierProxyProvider<ExchangeProvider, CalculateProvider>(
           create: (context) => CalculateProvider(
-            exchangeList: context.read<ExchangeProvider>().state.exchangeList,
+            // exchangeList: context.read<ExchangeProvider>().state.exchangeList,
           ),
           update: (context, value, previous) => previous!..update(value),
         ),

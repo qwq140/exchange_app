@@ -1,4 +1,5 @@
 import 'package:exchange_app/provider/exchange_provider.dart';
+import 'package:exchange_app/provider/exchange_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,13 @@ class ExchangeRateTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final list = context.watch<ExchangeProvider>().state.exchangeList;
+    final state = context.watch<ExchangeProvider>().state;
+
+    if(state is ExchangeLoading) return const Center(child: CircularProgressIndicator(color: Colors.lightGreen));
+
+    if(state is ExchangeError) return Center(child: Text(state.message));
+
+    final list = (state as ExchangeData).exchangeList;
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
