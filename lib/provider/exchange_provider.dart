@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:exchange_app/model/exchange_list_model.dart';
 import 'package:exchange_app/model/exchange_model.dart';
 import 'package:exchange_app/model/result.dart';
@@ -22,6 +24,7 @@ class ExchangeProvider extends ChangeNotifier {
     notifyListeners();
 
     Result<ExchangeModel> resp = await repository.getExchangeList();
+
     resp.when(
       success: (data) {
         _state = ExchangeState.data(exchangeList: data.list, date: DateUtil.getTimeFromDateTime(dateTime: data.date));
