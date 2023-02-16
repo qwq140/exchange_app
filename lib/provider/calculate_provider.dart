@@ -55,7 +55,7 @@ class CalculateProvider with ChangeNotifier {
   void _calculate(String before){
     double beforeAmount = double.parse(before);
     double afterAmount = double.parse(_state.selectExchange.amount.replaceAll(',', '')) * beforeAmount * _state.rate;
-    _state = _state.copyWith(before: before, after: afterAmount == 0.0 ? '0': afterAmount.toString());
+    _state = _state.copyWith(before: before, after: afterAmount == 0.0 ? '0': afterAmount.toStringAsFixed(3));
     notifyListeners();
   }
 
